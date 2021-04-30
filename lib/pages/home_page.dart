@@ -8,11 +8,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-          child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("HomePage"),
+      ),
+      body: Center(
         child: Container(
           child: Text(" Welcome to 20 days of flutter",
-              style: TextStyle(fontWeight: FontWeight.bold)),
+              style: TextStyle(fontWeight: FontWeight.bold,color:Colors.redAccent),textScaleFactor: 1.5,),
         ),
       ),
     );
