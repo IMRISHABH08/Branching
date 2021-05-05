@@ -1,104 +1,171 @@
+import 'dart:math';
+
+import 'package:catalog_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './home_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+String addName = " ";
+bool ButtonIsOn = false;
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: SingleChildScrollView(
-        //reverse: true,
-        child: Column(
+      child: Center(
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          reverse: true,
           children: [
-            Container(
-              color: Colors.white,
-              //margin: EdgeInsets.all(20),
-              child: Image.asset(
-                "assets/images/undraw_mobile_login_ikmv.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.blue,
-              ),
-              child: Text(
-                "Welcome",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+            Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  //height: 400,
+                  //margin: EdgeInsets.all(20),
+                  child: Image.asset(
+                    "assets/images/undraw_mobile_login_ikmv.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                textScaleFactor: 1.5,
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed("/home_page");
-              },
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      //  border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(25),
-                      //   borderSide: BorderSide.none,
-                      // ),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25)),
-                      labelText: "Username",
-                      // floatingLabelBehavior:,
-                      hintText: "e.g. Rishabh",
-                      hintStyle: TextStyle(fontSize: 10),
-                      filled: true,
-                      fillColor: Colors.blue[200],
+                // SizedBox(
+                //   height: 20,
+                // ),
+                Container(
+                  // width: 200,
+                  // height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
                     ),
-                    keyboardType: TextInputType.name,
-                    //onSubmitted: (_){},
-
-                    // inputFormatters: [
-                    //   FilteringTextInputFormatter.allow(filterPattern)
-                    // ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      hintText: "e.g. Ri@#_",
-                      hintStyle: TextStyle(fontSize: 10),
-                      filled: true,
-                      fillColor: Colors.blue[200],
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25)),
-
-                      //errorText: "For validation",
+                  child: Text(
+                    "  Welcome $addName ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      //backgroundColor: Colors.yellow,
+                      color: Colors.purple,
                     ),
-                    keyboardType: TextInputType.name,
-                    obscureText: true,
-                    // onSubmitted: ,
+                    textScaleFactor: 1.5,
                   ),
-                ],
-              ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 32),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            addName = value;
+                          });
+                        },
+
+                        // controller: TextEditingController(),
+                        decoration: InputDecoration(
+                          //  border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(25),
+                          //   borderSide: BorderSide.none,
+                          // ),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(25)),
+                          labelText: "Username",
+                          // floatingLabelBehavior:,
+                          hintText: "e.g. Rishabh",
+                          hintStyle: TextStyle(fontSize: 10),
+                          filled: true,
+                          fillColor: Colors.blue[200],
+                        ),
+                        keyboardType: TextInputType.name,
+                        //onSubmitted: (_){},
+
+                        // inputFormatters: [
+                        //   FilteringTextInputFormatter.allow(filterPattern)
+                        // ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          hintText: "e.g. Ri@#_",
+                          hintStyle: TextStyle(fontSize: 10),
+                          filled: true,
+                          fillColor: Colors.blue[200],
+
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(25)),
+
+                          //errorText: "For validation",
+                        ),
+                        keyboardType: TextInputType.name,
+                        obscureText: true,
+                        // onSubmitted: ,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: () async {
+                    setState(() {
+                      ButtonIsOn = true;
+                    });
+                    print("Button is $ButtonIsOn");
+                    await Future.delayed(Duration(seconds: 2));
+                    Navigator.of(context).pushNamed(MyRoutes.homeRoute);
+                    // await Future.delayed(Duration(seconds: 1));
+                    // ButtonIsOn = false;
+                    // setState(() {});
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    alignment: Alignment.center,
+                    height: 50,
+                    width: ButtonIsOn ? 50 : 150,
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular(ButtonIsOn?50:10),
+                      //shape: ButtonIsOn?BoxShape.circle:BoxShape.rectangle,
+                    ),
+                    child: ButtonIsOn
+                        ? Icon(
+                            Icons.done,
+                            color: Colors.white,
+                          )
+                        : Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                  ),
+                ),
+                // ElevatedButton(
+                //   onPressed: () {},
+                //   child: Text("Login"),
+                //   style: ElevatedButton.styleFrom(),
+                // ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Login"),
-              style: ElevatedButton.styleFrom(),
-            ),
-            Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom)),
           ],
         ),
       ),
