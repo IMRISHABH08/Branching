@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:catalog_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -98,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: "Password",
-                          hintText: "e.g. Ri@#_",
+                          hintText: "e.g. Ri@#12_",
                           hintStyle: TextStyle(fontSize: 10),
                           filled: true,
                           fillColor: Colors.blue[200],
@@ -119,40 +117,49 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
-                  onTap: () async {
-                    setState(() {
-                      ButtonIsOn = true;
-                    });
-                    print("Button is $ButtonIsOn");
-                    await Future.delayed(Duration(seconds: 2));
-                    Navigator.of(context).pushNamed(MyRoutes.homeRoute);
-                    // await Future.delayed(Duration(seconds: 1));
-                    // ButtonIsOn = false;
-                    // setState(() {});
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    alignment: Alignment.center,
-                    height: 50,
-                    width: ButtonIsOn ? 50 : 150,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(ButtonIsOn?50:10),
-                      //shape: ButtonIsOn?BoxShape.circle:BoxShape.rectangle,
+                Material(
+                  color: Colors.deepPurple,
+                  borderRadius: BorderRadius.circular(ButtonIsOn ? 50 : 10),
+                  child: InkWell(
+                    splashColor: Colors.blue,
+                    onTap: () async {
+                      setState(() {
+                        ButtonIsOn = true;
+                      });
+                      print("Button is $ButtonIsOn");
+                      await Future.delayed(Duration(milliseconds: 1500));
+                      await Navigator.of(context).pushNamed(MyRoutes.homeRoute);
+                      ButtonIsOn = false;
+                      setState(() {});
+                      //await Future.delayed(Duration(seconds: 2));
+                      // ButtonIsOn = false;
+                      // print("Button is $ButtonIsOn");
+                      // setState(() {});
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(seconds: 1),
+                      alignment: Alignment.center,
+                      height: 50,
+                      width: ButtonIsOn ? 50 : 150,
+                      // decoration: BoxDecoration(
+                      //   color: Colors.deepPurple,
+                        // borderRadius:
+                        //     BorderRadius.circular(ButtonIsOn ? 50 : 10),
+                        //shape: ButtonIsOn?BoxShape.circle:BoxShape.rectangle,
+                      
+                      child: ButtonIsOn
+                          ? Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
                     ),
-                    child: ButtonIsOn
-                        ? Icon(
-                            Icons.done,
-                            color: Colors.white,
-                          )
-                        : Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
                   ),
                 ),
                 // ElevatedButton(
