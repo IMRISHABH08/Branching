@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           validator: (value) {
                             if (value.isEmpty || value.length < 4)
-                              return "Give password of length upto 8";
+                              return "Give password of length upto 4";
  
                             //else
                             return null;
